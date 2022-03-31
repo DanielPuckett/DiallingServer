@@ -33,7 +33,7 @@ while [ $run -eq 1 ]; do
   chmod ugo+rw $INFILE
 #  echo "   Created new file environment" 1>&2
 
-  ../DiallingServer/VSSP $2 $3 $4 $5 $6 < $INPIPE > $OUTFILE 2>&1 &
+  /opt/DiallingServer/VSSP $2 $3 $4 $5 $6 < $INPIPE > $OUTFILE 2>&1 &
   background=$!
 #  echo "   Launched $background" 1>&2
   exec 1>$INPIPE
