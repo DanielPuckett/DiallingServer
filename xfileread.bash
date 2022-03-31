@@ -7,6 +7,11 @@
 # takes two arguments, filename, sipphonescount, sipinfilebase
 # returns count of DIDs processed
 # ------------------------------------------------------------
+
+# use C for tcp INVITES, c for udp INVITES
+DIALCMD="c"
+#DIALCMD="C"
+
 function processDIDfile {
   didFile=$1
   xlites=$2
@@ -69,7 +74,7 @@ function startDialling() {
   index=$2
   sipinfilebase=$3
   # echo "c 1$DID" >> ${sipinfilebase}$index
-  echo "c 777661$DID" >> ${sipinfilebase}$index
+  echo "$DIALCMD 777661$DID" >> ${sipinfilebase}$index
   #(* do shell script ("/Users/Admin/DIDs/code/tagwav.sh") & " " & index & " " & DID *)
 }
 
