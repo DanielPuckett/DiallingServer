@@ -25,7 +25,7 @@ while [ 1 ]; do
     done
     /bin/echo -n "" > ./tmp/did.events.log
     /bin/echo "working" > ./tmp/did.ticket.working
-    /bin/bash ../DiallingServer/xfileread.bash ./tmp/did.ticket $PHONES ./tmp/sip.in.
+    /bin/bash /opt/DiallingServer/xfileread.bash ./tmp/did.ticket $PHONES ./tmp/sip.in.
 
     sleep 10
     A="STOP"
