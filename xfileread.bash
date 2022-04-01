@@ -77,7 +77,6 @@ function startDialling() {
   index=$2
   sipinfilebase=$3
   dialcmd=$4
-  # echo "c 1$DID" >> ${sipinfilebase}$index
   echo "$dialcmd 777661$DID" >> ${sipinfilebase}$index
 }
 
