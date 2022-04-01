@@ -11,7 +11,7 @@ function processDIDfile {
   didFile=$1
   xlites=$2
   sipinfilebase=$3
- 
+
   # grab settings
   # use C for tcp INVITES, c for udp INVITES
   if [ "x$(grep -cE "^TCP=true" ${didFile}.settings)" == "x1" ]; then
