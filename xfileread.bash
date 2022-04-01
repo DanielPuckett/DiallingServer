@@ -7,15 +7,18 @@
 # takes two arguments, filename, sipphonescount, sipinfilebase
 # returns count of DIDs processed
 # ------------------------------------------------------------
-
-# use C for tcp INVITES, c for udp INVITES
-DIALCMD="c"
-#DIALCMD="C"
-
 function processDIDfile {
   didFile=$1
   xlites=$2
   sipinfilebase=$3
+ 
+  # grab settings
+  # use C for tcp INVITES, c for udp INVITES
+  if [ "x$(grep -cE "^TCP=true" ${didFile}.settings)" == "x1" ]; then
+    DIALCMD="C"
+  else
+    DIALCMD="c"
+  fi
 
   # How many DIDs do we have?
   index=1
@@ -40,7 +43,7 @@ function processDIDfile {
       if [ "x$thisDID" != "x" ]; then
         #As thisDID can include addtional trace DIDs separated by pipes, just dial the first one
         justTheFirstDID=`echo "$thisDID" | awk -F\| '{print $1}'`
-        startDialling $justTheFirstDID $xliteindex $sipinfilebase
+        startDialling $justTheFirstDID $xliteindex $sipinfilebase $DIALCMD
         #But log the full set so the addtional can be used in trace greps
         log_event $thisDID
       fi
@@ -73,9 +76,9 @@ function startDialling() {
   DID=$1
   index=$2
   sipinfilebase=$3
+  dialcmd=$4
   # echo "c 1$DID" >> ${sipinfilebase}$index
-  echo "$DIALCMD 777661$DID" >> ${sipinfilebase}$index
-  #(* do shell script ("/Users/Admin/DIDs/code/tagwav.sh") & " " & index & " " & DID *)
+  echo "$dialcmd 777661$DID" >> ${sipinfilebase}$index
 }
 
 function toggleRecording () {
@@ -88,7 +91,6 @@ function stopCalling() {
   index=$1
   sipinfilebase=$2
   echo "h" >> ${sipinfilebase}$index
-  #(* do shell script ("/Users/Admin/DIDs/code/mvwav.sh") & " " & index *)
 }
 
 function log_event() {
